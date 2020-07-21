@@ -2,12 +2,6 @@
 ## Application - Variables ##
 #############################
 
-# company name 
-variable "company" {
-  type        = string
-  description = "This variable defines thecompany name used to build resources"
-}
-
 # application name 
 variable "app_name" {
   type        = string
@@ -24,24 +18,29 @@ variable "environment" {
 variable "location" {
   type        = string
   description = "Azure region where the resource group will be created"
-  default     = "north europe"
+  default     = "West Europe"
 }
 
 # azure region shortname
 variable "region" {
   type        = string
   description = "Azure region where the resource group will be created"
-  default     = "ne"
+  default     = "we"
 }
 
 # owner
 variable "owner" {
   type        = string
-  description = "Specify the owner of the resource"
+  description = "Mukku"
 }
 
 # description
 variable "description" {
   type        = string
-  description = "Provide a description of the resource"
+  description = "Test app for hands on practice"
+}
+
+variable "test_resource_group" {
+  type        = string
+  description = "Resource group to have the service plan. Already created by Grimme"
 }
