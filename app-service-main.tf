@@ -20,12 +20,12 @@ resource "azurerm_app_service_plan" "service-plan" {
   location            = var.location
   resource_group_name = var.test_resource_group
   # Linux isn't available in Free tier
-  # kind                = "Linux"
-  # reserved            = true
+  kind                = "Linux"
+  reserved            = true
 
   sku {
-    tier = "Free"
-    size = "F1"
+    tier = "Standard"
+    size = "S1"
   }
 
   tags = {
@@ -35,29 +35,35 @@ resource "azurerm_app_service_plan" "service-plan" {
   }
 }
 
-# # Create the App Service
-# resource "azurerm_app_service" "app-service" {
-#   name                = "${var.app_name}-app-service"
-#   location            = var.location
-#   resource_group_name = var.test_resource_group
-#   app_service_plan_id = azurerm_app_service_plan.service-plan.id
+# Create the App Service
+resource "azurerm_app_service" "app-service" {
+  name                = "${var.app_name}-app-service"
+  location            = var.location
+  resource_group_name = var.test_resource_group
+  app_service_plan_id = azurerm_app_service_plan.service-plan.id
 
-#   site_config {
-#     linux_fx_version = "DOTNETCORE|3.1"
-#     remote_debugging_enabled = true
-#   }
+  site_config {
+    # https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples/app-service/docker-compose
+    app_command_line = ""
+    linux_fx_version = "COMPOSE|${filebase64("/Users/schmiedeone/work/labs/terraform_sample/sampleapi/docker-compose.yml")}"
+  }
 
-#   # To connect with git, verify where to put them
-#   # source_control = {}
-#   # scm_type = "LocalGit"
+  lifecycle {
+    ignore_changes = [
+      site_config.0.linux_fx_version # deployments are made outside of Terraform
+    ]
+  }
+  # To connect with git, verify where to put them
+  # source_control = {}
+  # scm_type = "LocalGit"
 
-#   app_settings = {
-#     "NODE_ENV" = "production"
-#   }
+  app_settings = {
+    "NODE_ENV" = "production"
+  }
 
-#   tags = {
-#     description = var.description
-#     environment = var.environment
-#     owner       = var.owner  
-#   }
-# }
+  tags = {
+    description = var.description
+    environment = var.environment
+    owner       = var.owner  
+  }
+}
