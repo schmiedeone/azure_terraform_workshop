@@ -2,23 +2,26 @@
 ## Azure App Service - Main ##
 ##############################
 
-# # Create a Resource Group
-# resource "azurerm_resource_group" "appservice-rg" {
-#   name     = "kopi-${var.region}-${var.environment}-${var.app_name}-app-service-rg"
-#   location = var.location
+# Create a Resource Group
+resource "azurerm_resource_group" "rg" {
+  name     = "${var.app_name}-rg"
+  location = var.location
 
-#   tags = {
-#     description = var.description
-#     environment = var.environment
-#     owner       = var.owner  
-#   }
-# }
+  tags = {
+    description = var.description
+    environment = var.environment
+    owner       = var.owner  
+  }
+}
+
+# Container module
+# https://registry.terraform.io/modules/innovationnorway/web-app-container/azurerm/1.2.0
 
 # Create the App Service Plan
 resource "azurerm_app_service_plan" "service-plan" {
   name                = "${var.app_name}-service-plan"
   location            = var.location
-  resource_group_name = var.test_resource_group
+  resource_group_name = azurerm_resource_group.rg.name
   # Linux isn't available in Free tier
   kind                = "Linux"
   reserved            = true
