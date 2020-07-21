@@ -1,7 +1,3 @@
-##############################
-## Azure App Service - Main ##
-##############################
-
 # Create a Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "${var.app_name}-rg"
@@ -14,7 +10,7 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-# Container module
+# Container module | Alternate option
 # https://registry.terraform.io/modules/innovationnorway/web-app-container/azurerm/1.2.0
 
 # Create the App Service Plan
@@ -53,12 +49,9 @@ resource "azurerm_app_service" "app-service" {
 
   lifecycle {
     ignore_changes = [
-      site_config.0.linux_fx_version # deployments are made outside of Terraform
+      site_config.0.linux_fx_version
     ]
   }
-  # To connect with git, verify where to put them
-  # source_control = {}
-  # scm_type = "LocalGit"
 
   app_settings = {
     "NODE_ENV" = "production"
