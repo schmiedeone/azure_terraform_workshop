@@ -12,6 +12,6 @@ provider "azurerm" {
   environment      = "AzureCloud"
   version          = ">= 2.15.0"
   features {}
-  subscription_id  = "7b49f69d-048a-4ca1-9fad-6a88cce612ac"
+  subscription_id  = "2e48ae36-5ceb-49b3-a916-6cb954b6063d"
   tenant_id        = "e2b92a0a-62bf-43c0-90ea-45cfe4be51c6"
 }

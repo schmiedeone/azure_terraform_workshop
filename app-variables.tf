@@ -39,8 +39,3 @@ variable "description" {
   type        = string
   description = "Test app for hands on practice"
 }
-
-variable "test_resource_group" {
-  type        = string
-  description = "Resource group to have the service plan. Already created by Grimme"
-}
