@@ -6,7 +6,6 @@ resource "azurerm_resource_group" "rg" {
   tags = {
     description = var.description
     environment = var.environment
-    owner       = var.owner  
   }
 }
 
@@ -30,7 +29,6 @@ resource "azurerm_app_service_plan" "service-plan" {
   tags = {
     description = var.description
     environment = var.environment
-    owner       = var.owner  
   }
 }
 
@@ -60,6 +58,5 @@ resource "azurerm_app_service" "app-service" {
   tags = {
     description = var.description
     environment = var.environment
-    owner       = var.owner  
   }
 }
