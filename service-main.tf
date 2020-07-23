@@ -42,7 +42,7 @@ resource "azurerm_app_service" "app-service" {
   site_config {
     # https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples/app-service/docker-compose
     app_command_line = ""
-    linux_fx_version = "COMPOSE|${filebase64("/Users/schmiedeone/work/labs/terraform_sample/sampleapi/docker-compose.yml")}"
+    linux_fx_version = "COMPOSE|${filebase64("./docker-compose.yml")}"
   }
 
   lifecycle {
