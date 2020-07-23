@@ -1,6 +1,6 @@
 # Create a Resource Group
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.app_name}-rg"
+  name     = "${var.app_name}-${var.variance}-rg"
   location = var.location
 
   tags = {
@@ -14,7 +14,7 @@ resource "azurerm_resource_group" "rg" {
 
 # Create the App Service Plan
 resource "azurerm_app_service_plan" "service-plan" {
-  name                = "${var.app_name}-service-plan"
+  name                = "${var.app_name}-${var.variance}-service-plan"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   # Linux isn't available in Free tier
@@ -34,7 +34,7 @@ resource "azurerm_app_service_plan" "service-plan" {
 
 # Create the App Service
 resource "azurerm_app_service" "app-service" {
-  name                = "${var.app_name}-app-service"
+  name                = "${var.app_name}-${var.variance}-app-service"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   app_service_plan_id = azurerm_app_service_plan.service-plan.id
