@@ -9,9 +9,6 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-# Container module | Alternate option
-# https://registry.terraform.io/modules/innovationnorway/web-app-container/azurerm/1.2.0
-
 # Create the App Service Plan
 resource "azurerm_app_service_plan" "service-plan" {
   name                = "${var.app_name}-${var.variance}-service-plan"
@@ -40,15 +37,8 @@ resource "azurerm_app_service" "app-service" {
   app_service_plan_id = azurerm_app_service_plan.service-plan.id
 
   site_config {
-    # https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples/app-service/docker-compose
     app_command_line = ""
     linux_fx_version = "COMPOSE|${filebase64("./docker-compose.yml")}"
-  }
-
-  lifecycle {
-    ignore_changes = [
-      site_config.0.linux_fx_version
-    ]
   }
 
   app_settings = {

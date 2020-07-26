@@ -1,18 +1,8 @@
 version: "3"
 services:
   app:
-    image: mcr.microsoft.com/dotnet/core/samples:aspnetapp
+    image: mcr.microsoft.com/dotnet/core/samples:dotnetapp
     container_name: "webapi"
     ports:
       - 8080:80
-    depends_on:
-      - db
-  db:
-    image: mongo
-    container_name: "mongo-container"
-    environment:
-      - MONGO_INITDB_DATABASE=sample-db
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root-password
-    ports:
-      - 27017:27017
+      - 443:443
